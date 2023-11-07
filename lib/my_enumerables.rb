@@ -24,6 +24,15 @@ module Enumerable
     end
     result
   end
+
+  def my_any?(&block)
+    result = false
+    self.my_each do |element|
+      condition = yield element
+      result = true if condition
+    end
+    result
+  end
 end
 
 # You will first have to define my_each
@@ -51,3 +60,4 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_each_with_index
 # p array.my_select { |e| e > 5 }
 # p array.my_all? { |e| e > 1 }
+# p array.my_any? { |e| e < 1 }
