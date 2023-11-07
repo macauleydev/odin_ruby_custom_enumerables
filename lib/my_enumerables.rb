@@ -55,6 +55,14 @@ module Enumerable
     end
     result
   end
+
+  def my_inject(initial_value, &block)
+    accumulator = initial_value
+    self.my_each do |element|
+      accumulator = yield accumulator, element
+    end
+    accumulator
+  end
 end
 
 # You will first have to define my_each
@@ -87,3 +95,4 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_count { |e| e < 10 }
 # p array.my_count
 # p array.my_map { |e| e * 2 + 1 }
+# p array.my_inject(1) { |acc, el| acc * el }
