@@ -1,5 +1,19 @@
 module Enumerable
-  # Your code goes here
+  def my_each_with_index(&block)
+    index = 0
+    self.my_each do |element|
+      yield [element, index]
+      index += 1
+    end
+  end
+
+  def my_select(&block)
+    result = []
+    self.my_each do |element|
+      result << element if yield element
+    end
+    result
+  end
 end
 
 # You will first have to define my_each
@@ -7,5 +21,22 @@ end
 # your enumerable module will have access
 # to this method
 class Array
-  # Define my_each here
+  def my_each
+    enum = self.to_enum
+    if block_given?
+      loop do
+        yield enum.next
+      end
+      self
+    else
+      enum
+    end
+  end
 end
+
+array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
+# p array.my_each { |e| puts "Reading #{e}" }
+# p array.my_each
+# p array.my_each_with_index { |e, i| puts "Reading #{e} at index #{i}" }
+# p array.my_each_with_index
+p array.my_select { |e| e > 5 }
