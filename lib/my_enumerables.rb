@@ -37,6 +37,16 @@ module Enumerable
   def my_none?(&block)
     !self.my_any? &block
   end
+
+  def my_count
+    count = 0
+    self.my_each do |element|
+      condition =
+        block_given? ? (yield element) : true
+      count += 1 if condition
+    end
+    count
+  end
 end
 
 # You will first have to define my_each
@@ -66,3 +76,5 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_all? { |e| e > 1 }
 # p array.my_any? { |e| e < 1 }
 # p array.my_none? { |e| e < 2 }
+p array.my_count { |e| e < 10 }
+p array.my_count
