@@ -10,7 +10,17 @@ module Enumerable
   def my_select(&block)
     result = []
     self.my_each do |element|
-      result << element if yield element
+      condition = yield element
+      result << element if condition
+    end
+    result
+  end
+
+  def my_all?(&block)
+    result = true
+    self.my_each do |element|
+      condition = yield element
+      result = false unless condition
     end
     result
   end
@@ -39,4 +49,5 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_each
 # p array.my_each_with_index { |e, i| puts "Reading #{e} at index #{i}" }
 # p array.my_each_with_index
-p array.my_select { |e| e > 5 }
+# p array.my_select { |e| e > 5 }
+# p array.my_all? { |e| e > 1 }
