@@ -33,6 +33,10 @@ module Enumerable
     end
     result
   end
+
+  def my_none?(&block)
+    !self.my_any? &block
+  end
 end
 
 # You will first have to define my_each
@@ -61,3 +65,4 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_select { |e| e > 5 }
 # p array.my_all? { |e| e > 1 }
 # p array.my_any? { |e| e < 1 }
+# p array.my_none? { |e| e < 2 }
