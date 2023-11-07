@@ -47,6 +47,14 @@ module Enumerable
     end
     count
   end
+
+  def my_map(&block)
+    result = []
+    self.my_each do |element|
+      result << (yield element)
+    end
+    result
+  end
 end
 
 # You will first have to define my_each
@@ -76,5 +84,6 @@ array = [1, 1, 2, 3, 5, 8, 13, 21, 34]
 # p array.my_all? { |e| e > 1 }
 # p array.my_any? { |e| e < 1 }
 # p array.my_none? { |e| e < 2 }
-p array.my_count { |e| e < 10 }
-p array.my_count
+# p array.my_count { |e| e < 10 }
+# p array.my_count
+# p array.my_map { |e| e * 2 + 1 }
